@@ -1,0 +1,110 @@
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://maven.apache.org/POM/4.0.0
+            http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.jtheque</groupId>
+        <artifactId>jtheque-collections</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jtheque</groupId>
+    <artifactId>jtheque-memory-module</artifactId>
+    <packaging>jar</packaging>
+    <name>JTheque Memory Module</name>
+    <description>Module permettant d'afficher la mémoire utilisée par l'application</description>
+    <version>1.4.1</version>
+
+    <url>http://jtheque.developpez.com/collections/memory</url>
+
+    <distributionManagement>
+        <site>
+            <id>jtheque-web-server</id>
+            <name>JTheque FTP Server</name>
+            <url>ftp://developpez.com/collections/memory</url>
+        </site>
+    </distributionManagement>
+
+    <issueManagement>
+        <system>Redmine</system>
+        <url>http://projets.developpez.com/projects/jtheque-memory-mod/issues</url>
+    </issueManagement>
+
+    <scm>
+        <url>http://projets.developpez.com/repositories/show/jtheque-memory-mod</url>
+        <connection>scm:svn:http://subversion.developpez.com/projets/JTheque/modules/memory/</connection>
+    </scm>
+
+    <build>
+        <directory>${env.BUILD_HOME}/modules/jtheque-memory-module</directory>
+
+        <outputDirectory>${env.BUILD_HOME}/modules/jtheque-memory-module/classes</outputDirectory>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <targetJdk>${java.version}</targetJdk>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jtheque</groupId>
+            <artifactId>jtheque-core</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+    </dependencies>
+
+</project>

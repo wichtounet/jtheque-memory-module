@@ -1,0 +1,8 @@
+    Welcome to the JTheque Memory Module Site. I hope you will find here all 
+    the documentation you need. You will here here user documentation 
+    and developer information. 
+
+What is JTheque Memory Module
+
+    JTheque Memory Module is a module for JTheque Collections This module display the memory used
+    by the application and enable the user to force the release of the unused memory. 
