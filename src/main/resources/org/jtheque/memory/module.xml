@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <i18n>
+        <i18nResource name="jtheque-memory" version="1.0">
+            <classpath>org/jtheque/memory/i18n/memory_en.properties</classpath>
+            <classpath>org/jtheque/memory/i18n/memory_fr.properties</classpath>
+        </i18nResource>
+    </i18n>
+    <resources>
+        <resource name="jtheque-memory-module-icon">
+            <classpath>org/jtheque/memory/images/bin.png</classpath>
+        </resource>
+    </resources>
+</config>

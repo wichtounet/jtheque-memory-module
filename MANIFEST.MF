@@ -1,2 +1,0 @@
-Manifest-Version: 1.0
-Module-Context: org/jtheque/memory/spring/memory-beans.xml

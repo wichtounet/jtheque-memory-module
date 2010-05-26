@@ -1,5 +1,10 @@
 package org.jtheque.memory;
 
+import org.jtheque.resources.able.IResourceService;
+import org.jtheque.ui.utils.actions.JThequeSimpleAction;
+
+import java.awt.event.ActionEvent;
+
 /*
  * Copyright JTheque (Baptiste Wicht)
  *
@@ -16,32 +21,24 @@ package org.jtheque.memory;
  * limitations under the License.
  */
 
-import org.jtheque.utils.ui.SwingUtils;
-
-import javax.swing.JLabel;
-import java.awt.Color;
-
 /**
- * A label to display the memory.
+ * Action to clean the memory.
  *
  * @author Baptiste Wicht
  */
-public final class MemoryLabel extends JLabel implements MemoryListener {
-    private static final int KILO = 1024;
+final class CleanMemoryAction extends JThequeSimpleAction {
+	private final MemoryModule memoryModule;
 
-    /**
-     * Construct a new MemoryLabel.
-     */
-    public MemoryLabel() {
+	public CleanMemoryAction(IResourceService resourceService, MemoryModule memoryModule) {
         super();
+		
+		this.memoryModule = memoryModule;
 
-        setForeground(Color.white);
+		setIcon(resourceService.getIcon("jtheque-memory-module-icon"));
     }
 
     @Override
-    public void memoryUsageChanged(long memoryCommitted, long memoryUsed) {
-        setText(memoryUsed / KILO + " KB / " + memoryCommitted / KILO + " KB");
-
-        SwingUtils.refresh(this);
+    public void actionPerformed(ActionEvent e) {
+        memoryModule.cleanMemory();
     }
 }

@@ -1,31 +1,24 @@
 package org.jtheque.memory;
 
 /*
- * This file is part of JTheque.
+ * Copyright JTheque (Baptiste Wicht)
  *
- * JTheque is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * JTheque is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * You should have received a copy of the GNU General Public License
- * along with JTheque.  If not, see <http://www.gnu.org/licenses/>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
-import org.jdesktop.swingx.event.WeakEventListenerList;
-import org.jtheque.core.managers.Managers;
-import org.jtheque.core.managers.module.annotations.Module;
-import org.jtheque.core.managers.module.annotations.Plug;
-import org.jtheque.core.managers.module.annotations.UnPlug;
-import org.jtheque.core.managers.view.able.IViewManager;
-import org.jtheque.core.managers.view.able.components.StateBarComponent;
-import org.jtheque.core.managers.view.able.components.StateBarComponent.Position;
-import org.jtheque.utils.ui.SwingUtils;
+import org.jtheque.core.utils.WeakEventListenerList;
 
+import javax.annotation.PreDestroy;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
 import java.util.Timer;
@@ -36,141 +29,85 @@ import java.util.TimerTask;
  *
  * @author Baptiste Wicht
  */
-@Module(id = "jtheque-memory-module", i18n = "classpath:org/jtheque/memory/i18n/memory",
-        version = "1.4.1", core = "2.0.2", jarFile = "jtheque-memory-module-1.4.1.jar", 
-        updateURL = "http://jtheque.developpez.com/public/versions/MemoryModule.versions")
 public final class MemoryModule {
-    /**
-     * The timer to manager the memory task.
-     */
-    private static final Timer MEMORY_MANAGEMENT_TIMER = new Timer();
+	private static final int TIMER_DELAY = 1000;
+	private static final int TIMER_PERIOD = 1000 * 60;
 
-    /**
-     * The list to manage the listeners.
-     */
-    private static final WeakEventListenerList LISTENERS = new WeakEventListenerList();
+	/**
+	 * The timer to manager the memory task.
+	 */
+	private final Timer memoryManagementTimer = new Timer();
 
-    /**
-     * The state bar component who display the memory.
-     */
-    private StateBarComponent component;
+	/**
+	 * The list to manage the listeners.
+	 */
+	private final WeakEventListenerList listeners = new WeakEventListenerList();
 
-    /**
-     * The base name for the resources.
-     */
-    public static final String IMAGE_BASE_NAME = "org/jtheque/memory/images";
+	/**
+	 * Construct a new MemoryModule.
+	 */
+	public MemoryModule() {
+		super();
+		
+		memoryManagementTimer.scheduleAtFixedRate(new MemoryTask(), TIMER_DELAY, TIMER_PERIOD);
+	}
 
-    private static final int TIMER_DELAY = 1000 * 15;
-    private static final int TIMER_PERIOD = 1000 * 60;
+	@PreDestroy
+	public void stop() {
+		if (memoryManagementTimer != null) {
+			memoryManagementTimer.cancel();
+		}
 
-    /**
-     * Plug the module.
-     */
-    @Plug
-    public void plug() {
-        MEMORY_MANAGEMENT_TIMER.scheduleAtFixedRate(new MemoryTask(), TIMER_DELAY, TIMER_PERIOD);
+		listeners.removeAll(MemoryListener.class);
+	}
 
-        SwingUtils.inEdt(new Runnable() {
-            @Override
-            public void run() {
-                component = new StateBarComponent(new MemoryPanel(), Position.RIGHT);
-                Managers.getManager(IViewManager.class).addStateBarComponent(component);
-            }
-        });
-    }
+	/**
+	 * Add a memory listener.
+	 *
+	 * @param listener The listener to add.
+	 */
+	public void addMemoryListener(MemoryListener listener) {
+		listeners.add(MemoryListener.class, listener);
+	}
 
-    /**
-     * Un plug the module.
-     */
-    @UnPlug
-    public void unplug() {
-        Managers.getManager(IViewManager.class).removeStateBarComponent(component);
+	/**
+	 * Clean the memory, force run the gc.
+	 */
+	public void cleanMemory() {
+		for (int i = 0; i < 5; i++) {
+			System.gc();
+		}
 
-        if (MEMORY_MANAGEMENT_TIMER != null) {
-            MEMORY_MANAGEMENT_TIMER.cancel();
-        }
+		fireMemoryChanged();
+	}
 
-        for (MemoryListener l : LISTENERS.getListeners(MemoryListener.class)) {
-            removeMemoryListener(l);
-        }
-    }
+	/**
+	 * Fire a memory event when the function has been updated.
+	 */
+	private void fireMemoryChanged() {
+		for (MemoryListener listener : listeners.getListeners(MemoryListener.class)) {
+			listener.memoryUsageChanged(getMemoryUsage().getCommitted(), getMemoryUsage().getUsed());
+		}
+	}
 
-    /**
-     * Add a memory listener.
-     *
-     * @param listener The listener to add.
-     */
-    public static void addMemoryListener(MemoryListener listener) {
-        LISTENERS.add(MemoryListener.class, listener);
-    }
+	/**
+	 * Return the memory usage of the application.
+	 *
+	 * @return The current memory usage.
+	 */
+	private static MemoryUsage getMemoryUsage() {
+		return ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+	}
 
-    /**
-     * Remove a memory listener.
-     *
-     * @param listener The listener to remove
-     */
-    private static void removeMemoryListener(MemoryListener listener) {
-        LISTENERS.remove(MemoryListener.class, listener);
-    }
-
-    /**
-     * Return the memory usage of the application.
-     *
-     * @return The current memory usage.
-     */
-    private static MemoryUsage getMemoryUsage() {
-        return ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-    }
-
-    /**
-     * Return the memory used.
-     *
-     * @return The amount of memory used by the application.
-     */
-    public static long getMemoryUsed() {
-        return getMemoryUsage().getUsed();
-    }
-
-    /**
-     * Return the memory committed.
-     *
-     * @return The amount of memory committed by the application.
-     */
-    public static long getMemoryCommitted() {
-        return getMemoryUsage().getCommitted();
-    }
-
-    /**
-     * Clean the memory, force run the gc.
-     */
-    public static void cleanMemory() {
-        for (int i = 0; i < 5; i++) {
-            System.gc();
-        }
-
-        MEMORY_MANAGEMENT_TIMER.schedule(new MemoryTask(), 5);
-    }
-
-    /**
-     * A timer task to calculate the memory usage and avert the listeners of the change.
-     *
-     * @author Baptiste Wicht
-     */
-    private static final class MemoryTask extends TimerTask {
-        @Override
-        public void run() {
-            fireMemoryChanged();
-        }
-
-        /**
-         * Fire a memory event when the function has been updated.
-         */
-        private static void fireMemoryChanged() {
-            MemoryListener[] listeners = LISTENERS.getListeners(MemoryListener.class);
-
-            for (MemoryListener listener : listeners) {
-                listener.memoryUsageChanged();
-            }
-        }
-    }
+	/**
+	 * A timer task to calculate the memory usage and avert the listeners of the change.
+	 *
+	 * @author Baptiste Wicht
+	 */
+	private final class MemoryTask extends TimerTask {
+		@Override
+		public void run() {
+			fireMemoryChanged();
+		}
+	}
 }
