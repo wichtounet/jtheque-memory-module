@@ -14,7 +14,7 @@
     <context:annotation-config/>
 
     <bean class="org.jtheque.views.utils.AutoRegistrationPostProcessor" lazy-init="false">
-        <constructor-arg value="jtheque-memory-module" />
+        <constructor-arg value="org.jtheque.memory" />
         <constructor-arg>
             <array>
                 <value>memoryPanel</value>
