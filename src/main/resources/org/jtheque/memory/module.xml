@@ -6,9 +6,9 @@
             <classpath>org/jtheque/memory/i18n/memory_fr.properties</classpath>
         </i18nResource>
     </i18n>
-    <resources>
+    <images>
         <resource name="jtheque-memory-module-icon">
             <classpath>org/jtheque/memory/images/bin.png</classpath>
         </resource>
-    </resources>
+    </images>
 </config>
