@@ -1,6 +1,6 @@
 package org.jtheque.memory;
 
-import org.jtheque.resources.able.IResourceService;
+import org.jtheque.images.able.IResourceService;
 import org.jtheque.ui.utils.components.Borders;
 import org.jtheque.views.able.components.IStateBarComponent;
 
