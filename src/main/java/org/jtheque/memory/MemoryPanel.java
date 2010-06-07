@@ -1,6 +1,6 @@
 package org.jtheque.memory;
 
-import org.jtheque.images.able.IResourceService;
+import org.jtheque.images.able.IImageService;
 import org.jtheque.ui.utils.components.Borders;
 import org.jtheque.views.able.components.IStateBarComponent;
 
@@ -8,6 +8,7 @@ import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -37,7 +38,7 @@ import java.awt.Insets;
 public final class MemoryPanel extends JPanel implements IStateBarComponent {
     private static final int BUTTON_SIZE = 20;
 
-    public MemoryPanel(IResourceService resourceService, MemoryModule memoryModule) {
+    public MemoryPanel(IImageService imageService, MemoryModule memoryModule) {
         super();
 
         setLayout(new FlowLayout(FlowLayout.LEFT, 3, 1));
@@ -50,7 +51,7 @@ public final class MemoryPanel extends JPanel implements IStateBarComponent {
 
         add(label);
 
-        AbstractButton button = new JButton(new CleanMemoryAction(resourceService, memoryModule));
+        AbstractButton button = new JButton(new CleanMemoryAction(imageService, memoryModule));
 
         button.setMargin(new Insets(0, 0, 0, 0));
         button.setSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
@@ -62,13 +63,13 @@ public final class MemoryPanel extends JPanel implements IStateBarComponent {
         add(Box.createRigidArea(new Dimension(5, BUTTON_SIZE)));
     }
 
-	@Override
-	public Component getComponent() {
-		return this;
-	}
+    @Override
+    public Component getComponent() {
+        return this;
+    }
 
-	@Override
-	public Position getPosition() {
-		return Position.RIGHT;
-	}
+    @Override
+    public Position getPosition() {
+        return Position.RIGHT;
+    }
 }

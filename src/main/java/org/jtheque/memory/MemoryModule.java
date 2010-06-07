@@ -19,6 +19,7 @@ package org.jtheque.memory;
 import org.jtheque.core.utils.WeakEventListenerList;
 
 import javax.annotation.PreDestroy;
+
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
 import java.util.Timer;
@@ -30,84 +31,84 @@ import java.util.TimerTask;
  * @author Baptiste Wicht
  */
 public final class MemoryModule {
-	private static final int TIMER_DELAY = 1000;
-	private static final int TIMER_PERIOD = 1000 * 60;
+    private static final int TIMER_DELAY = 1000;
+    private static final int TIMER_PERIOD = 1000 * 60;
 
-	/**
-	 * The timer to manager the memory task.
-	 */
-	private final Timer memoryManagementTimer = new Timer();
+    /**
+     * The timer to manager the memory task.
+     */
+    private final Timer memoryManagementTimer = new Timer();
 
-	/**
-	 * The list to manage the listeners.
-	 */
-	private final WeakEventListenerList listeners = new WeakEventListenerList();
+    /**
+     * The list to manage the listeners.
+     */
+    private final WeakEventListenerList listeners = new WeakEventListenerList();
 
-	/**
-	 * Construct a new MemoryModule.
-	 */
-	public MemoryModule() {
-		super();
-		
-		memoryManagementTimer.scheduleAtFixedRate(new MemoryTask(), TIMER_DELAY, TIMER_PERIOD);
-	}
+    /**
+     * Construct a new MemoryModule.
+     */
+    public MemoryModule() {
+        super();
 
-	@PreDestroy
-	public void stop() {
-		if (memoryManagementTimer != null) {
-			memoryManagementTimer.cancel();
-		}
+        memoryManagementTimer.scheduleAtFixedRate(new MemoryTask(), TIMER_DELAY, TIMER_PERIOD);
+    }
 
-		listeners.removeAll(MemoryListener.class);
-	}
+    @PreDestroy
+    public void stop() {
+        if (memoryManagementTimer != null) {
+            memoryManagementTimer.cancel();
+        }
 
-	/**
-	 * Add a memory listener.
-	 *
-	 * @param listener The listener to add.
-	 */
-	public void addMemoryListener(MemoryListener listener) {
-		listeners.add(MemoryListener.class, listener);
-	}
+        listeners.removeAll(MemoryListener.class);
+    }
 
-	/**
-	 * Clean the memory, force run the gc.
-	 */
-	public void cleanMemory() {
-		for (int i = 0; i < 5; i++) {
-			System.gc();
-		}
+    /**
+     * Add a memory listener.
+     *
+     * @param listener The listener to add.
+     */
+    public void addMemoryListener(MemoryListener listener) {
+        listeners.add(MemoryListener.class, listener);
+    }
 
-		fireMemoryChanged();
-	}
+    /**
+     * Clean the memory, force run the gc.
+     */
+    public void cleanMemory() {
+        for (int i = 0; i < 5; i++) {
+            System.gc();
+        }
 
-	/**
-	 * Fire a memory event when the function has been updated.
-	 */
-	private void fireMemoryChanged() {
-		for (MemoryListener listener : listeners.getListeners(MemoryListener.class)) {
-			listener.memoryUsageChanged(getMemoryUsage().getCommitted(), getMemoryUsage().getUsed());
-		}
-	}
+        fireMemoryChanged();
+    }
 
-	/**
-	 * Return the memory usage of the application.
-	 *
-	 * @return The current memory usage.
-	 */
-	private static MemoryUsage getMemoryUsage() {
-		return ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
-	}
+    /**
+     * Fire a memory event when the function has been updated.
+     */
+    private void fireMemoryChanged() {
+        for (MemoryListener listener : listeners.getListeners(MemoryListener.class)) {
+            listener.memoryUsageChanged(getMemoryUsage().getCommitted(), getMemoryUsage().getUsed());
+        }
+    }
 
-	/**
-	 * A timer task to calculate the memory usage and avert the listeners of the change.
-	 *
-	 * @author Baptiste Wicht
-	 */
-	private final class MemoryTask extends TimerTask {
-		@Override
-		public void run() {
-			fireMemoryChanged();
-		}
-	}
+    /**
+     * Return the memory usage of the application.
+     *
+     * @return The current memory usage.
+     */
+    private static MemoryUsage getMemoryUsage() {
+        return ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+    }
+
+    /**
+     * A timer task to calculate the memory usage and avert the listeners of the change.
+     *
+     * @author Baptiste Wicht
+     */
+    private final class MemoryTask extends TimerTask {
+        @Override
+        public void run() {
+            fireMemoryChanged();
+        }
+    }
 }

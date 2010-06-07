@@ -28,7 +28,7 @@ public interface MemoryListener extends EventListener {
      * Call when the memory usage has been updated.
      *
      * @param memoryCommitted The committed memory.
-     * @param memoryUsed The memory used. 
+     * @param memoryUsed      The memory used.
      */
     void memoryUsageChanged(long memoryCommitted, long memoryUsed);
 }

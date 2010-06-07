@@ -19,6 +19,7 @@ package org.jtheque.memory;
 import org.jtheque.utils.ui.SwingUtils;
 
 import javax.swing.JLabel;
+
 import java.awt.Color;
 
 /**
