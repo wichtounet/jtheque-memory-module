@@ -78,7 +78,6 @@
                         <Import-Package>org.jtheque.views.utils, org.jtheque.views.able, *</Import-Package>
                         <Module-Core>2.1.0</Module-Core>
                         <Module-UpdateUrl>http://jtheque.developpez.com/public/versions/MemoryModule.versions</Module-UpdateUrl>
-                        <Module-Config>org/jtheque/memory/module.xml</Module-Config>
                     </instructions>
                 </configuration>
             </plugin>
