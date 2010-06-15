@@ -14,7 +14,7 @@
     <context:annotation-config/>
 
     <bean class="org.jtheque.views.utils.AutoRegistrationPostProcessor" lazy-init="false">
-        <constructor-arg value="org.jtheque.memory" />
+        <constructor-arg value="org.jtheque.memory"/>
         <constructor-arg>
             <array>
                 <value>memoryPanel</value>
@@ -23,12 +23,14 @@
         <property name="views" ref="views"/>
     </bean>
 
-    <bean id="memoryModule" class="org.jtheque.memory.MemoryModule" lazy-init="false" />
+    <bean id="memoryModule" class="org.jtheque.memory.MemoryModule" lazy-init="false"/>
 
     <bean id="memoryPanel" class="org.jtheque.memory.MemoryPanel" lazy-init="true">
-        <constructor-arg><osgi:reference interface="org.jtheque.images.able.IImageService" /></constructor-arg>
-        <constructor-arg ref="memoryModule" />
+        <constructor-arg>
+            <osgi:reference interface="org.jtheque.images.able.IImageService"/>
+        </constructor-arg>
+        <constructor-arg ref="memoryModule"/>
     </bean>
 
-    <osgi:reference id="views" interface="org.jtheque.views.able.IViews" />
+    <osgi:reference id="views" interface="org.jtheque.views.able.IViews"/>
 </beans>
