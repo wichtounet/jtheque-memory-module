@@ -60,10 +60,6 @@
     </scm>
 
     <build>
-        <directory>${env.BUILD_HOME}/modules/jtheque-memory-module</directory>
-
-        <outputDirectory>${env.BUILD_HOME}/modules/jtheque-memory-module/classes</outputDirectory>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.felix</groupId>
