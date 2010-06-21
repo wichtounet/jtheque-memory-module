@@ -73,7 +73,7 @@
                         <Spring-Context>*;create-asynchronously:=false;publish-context:=false</Spring-Context>
                         <Import-Package>org.jtheque.views.utils, org.jtheque.views.able, *</Import-Package>
                         <Module-Core>2.1.0</Module-Core>
-                        <Module-UpdateUrl>http://jtheque.developpez.com/public/versions/MemoryModule.versions
+                        <Module-UpdateUrl>http://jtheque.developpez.com/descriptors/jtheque-memory-module.xml
                         </Module-UpdateUrl>
                     </instructions>
                 </configuration>
