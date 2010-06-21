@@ -18,12 +18,6 @@ package org.jtheque.memory;
 
 import org.jtheque.core.utils.WeakEventListenerList;
 import org.jtheque.modules.utils.SwingModule;
-import org.jtheque.spring.utils.SwingSpringProxy;
-import org.jtheque.utils.ui.SwingUtils;
-
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import javax.annotation.PreDestroy;
 
