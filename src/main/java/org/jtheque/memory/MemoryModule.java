@@ -17,6 +17,13 @@ package org.jtheque.memory;
  */
 
 import org.jtheque.core.utils.WeakEventListenerList;
+import org.jtheque.modules.utils.SwingModule;
+import org.jtheque.spring.utils.SwingSpringProxy;
+import org.jtheque.utils.ui.SwingUtils;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import javax.annotation.PreDestroy;
 
@@ -30,7 +37,7 @@ import java.util.TimerTask;
  *
  * @author Baptiste Wicht
  */
-public final class MemoryModule {
+public final class MemoryModule extends SwingModule {
     private static final int TIMER_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000 * 60;
 
@@ -47,8 +54,8 @@ public final class MemoryModule {
     /**
      * Construct a new MemoryModule.
      */
-    public MemoryModule() {
-        super();
+    public MemoryModule(String[] edtBeans) {
+        super(edtBeans);
 
         memoryManagementTimer.scheduleAtFixedRate(new MemoryTask(), TIMER_DELAY, TIMER_PERIOD);
     }
