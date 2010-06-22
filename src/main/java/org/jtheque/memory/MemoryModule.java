@@ -49,7 +49,7 @@ public final class MemoryModule extends SwingModule {
      * Construct a new MemoryModule.
      */
     public MemoryModule(String[] edtBeans) {
-        super(edtBeans);
+        super("org.jtheque.memory", edtBeans);
 
         memoryManagementTimer.scheduleAtFixedRate(new MemoryTask(), TIMER_DELAY, TIMER_PERIOD);
     }
