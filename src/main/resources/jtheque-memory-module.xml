@@ -2,13 +2,13 @@
 <descriptor xmlns="http://jtheque.baptiste-wicht.com/schema/descriptor"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="
-            http://jtheque.baptiste-wicht.com/schema/descriptor
-            http://jtheque.baptiste-wicht.com/files/schema/descriptor-1.0.xsd">
+                http://jtheque.baptiste-wicht.com/schema/descriptor
+                http://jtheque.baptiste-wicht.com/files/schema/descriptor-1.0.xsd">
     <id>jtheque-memory-module</id>
 
-    <version name="1.4.2">
+    <version name="1.4.3">
         <module core="2.1.0">
-            <file>org.jtheque.memory-1.4.2-SNAPSHOT.jar</file>
+            <file>org.jtheque.memory-1.4.3</file>
             <url>http://jtheque.baptiste-wicht.com/files/modules/memory/1.4.2/org.jtheque.memory-1.4.2-SNAPSHOT.jar
             </url>
         </module>
