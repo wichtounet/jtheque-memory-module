@@ -254,5 +254,4 @@
         <sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
         <sonar.cpd.minimumTokens>50</sonar.cpd.minimumTokens>
     </properties>
-
 </project>
