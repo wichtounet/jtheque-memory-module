@@ -1,6 +1,6 @@
 package org.jtheque.memory;
 
-import org.jtheque.images.able.IImageService;
+import org.jtheque.images.able.ImageService;
 import org.jtheque.ui.utils.components.Borders;
 import org.jtheque.views.able.components.IStateBarComponent;
 
@@ -38,7 +38,7 @@ import java.awt.Insets;
 public final class MemoryPanel extends JPanel implements IStateBarComponent {
     private static final int BUTTON_SIZE = 20;
 
-    public MemoryPanel(IImageService imageService, MemoryModule memoryModule) {
+    public MemoryPanel(ImageService imageService, MemoryModule memoryModule) {
         super();
 
         setLayout(new FlowLayout(FlowLayout.LEFT, 3, 1));

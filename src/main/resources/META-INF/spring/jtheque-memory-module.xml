@@ -28,7 +28,7 @@
 
     <bean id="memoryPanel" class="org.jtheque.memory.MemoryPanel" lazy-init="true" >
         <constructor-arg>
-            <osgi:reference interface="org.jtheque.images.able.IImageService"/>
+            <osgi:reference interface="org.jtheque.images.able.ImageService"/>
         </constructor-arg>
         <constructor-arg ref="memoryModule"/>
     </bean>
