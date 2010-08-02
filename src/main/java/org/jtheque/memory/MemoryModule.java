@@ -16,13 +16,15 @@ package org.jtheque.memory;
  * limitations under the License.
  */
 
-import org.jtheque.core.utils.WeakEventListenerList;
 import org.jtheque.modules.utils.SwingModule;
+import org.jtheque.utils.annotations.NotThreadSafe;
+import org.jtheque.utils.collections.CollectionUtils;
 
 import javax.annotation.PreDestroy;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,6 +33,7 @@ import java.util.TimerTask;
  *
  * @author Baptiste Wicht
  */
+@NotThreadSafe
 public final class MemoryModule extends SwingModule {
     private static final int TIMER_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000 * 60;
@@ -43,7 +46,7 @@ public final class MemoryModule extends SwingModule {
     /**
      * The list to manage the listeners.
      */
-    private final WeakEventListenerList listeners = new WeakEventListenerList();
+    private final List<MemoryListener> listeners = CollectionUtils.newList(1);
 
     /**
      * Construct a new MemoryModule.
@@ -60,7 +63,7 @@ public final class MemoryModule extends SwingModule {
             memoryManagementTimer.cancel();
         }
 
-        listeners.removeAll(MemoryListener.class);
+        listeners.clear();
     }
 
     /**
@@ -69,7 +72,7 @@ public final class MemoryModule extends SwingModule {
      * @param listener The listener to add.
      */
     public void addMemoryListener(MemoryListener listener) {
-        listeners.add(MemoryListener.class, listener);
+        listeners.add(listener);
     }
 
     /**
@@ -87,7 +90,7 @@ public final class MemoryModule extends SwingModule {
      * Fire a memory event when the function has been updated.
      */
     private void fireMemoryChanged() {
-        for (MemoryListener listener : listeners.getListeners(MemoryListener.class)) {
+        for (MemoryListener listener : listeners) {
             listener.memoryUsageChanged(getMemoryUsage().getCommitted(), getMemoryUsage().getUsed());
         }
     }

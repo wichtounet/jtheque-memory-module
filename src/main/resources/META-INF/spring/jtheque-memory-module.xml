@@ -33,5 +33,5 @@
         <constructor-arg ref="memoryModule"/>
     </bean>
 
-    <osgi:reference id="views" interface="org.jtheque.views.able.IViews"/>
+    <osgi:reference id="views" interface="org.jtheque.views.able.Views"/>
 </beans>

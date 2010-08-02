@@ -1,8 +1,8 @@
 package org.jtheque.memory;
 
 import org.jtheque.images.able.IImageService;
-import org.jtheque.ui.utils.components.Borders;
-import org.jtheque.views.able.components.IStateBarComponent;
+import org.jtheque.ui.able.components.Borders;
+import org.jtheque.views.able.components.StateBarComponent;
 
 import javax.swing.AbstractButton;
 import javax.swing.Box;
@@ -35,7 +35,7 @@ import java.awt.Insets;
  *
  * @author Baptiste Wicht
  */
-public final class MemoryPanel extends JPanel implements IStateBarComponent {
+public final class MemoryPanel extends JPanel implements StateBarComponent {
     private static final int BUTTON_SIZE = 20;
 
     public MemoryPanel(IImageService imageService, MemoryModule memoryModule) {
