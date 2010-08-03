@@ -1,6 +1,6 @@
 package org.jtheque.memory;
 
-import org.jtheque.images.able.IImageService;
+import org.jtheque.images.able.ImageService;
 import org.jtheque.ui.utils.actions.JThequeSimpleAction;
 
 import java.awt.event.ActionEvent;
@@ -29,7 +29,7 @@ import java.awt.event.ActionEvent;
 final class CleanMemoryAction extends JThequeSimpleAction {
     private final MemoryModule memoryModule;
 
-    CleanMemoryAction(IImageService imageService, MemoryModule memoryModule) {
+    CleanMemoryAction(ImageService imageService, MemoryModule memoryModule) {
         super();
 
         this.memoryModule = memoryModule;

@@ -13,7 +13,7 @@
 
     <packaging>bundle</packaging>
 
-    <description>Module displaying the used memory by the application</description>
+    <i18NResource>Module displaying the used memory by the application</i18NResource>
     <version>1.4.2-SNAPSHOT</version>
 
     <url>http://jtheque.developpez.com/collections/memory</url>
@@ -73,7 +73,7 @@
                         <Spring-Context>*;create-asynchronously:=false;publish-context:=false</Spring-Context>
                         <Import-Package>org.jtheque.views.utils, org.jtheque.views.able, *</Import-Package>
                         <Module-Core>2.1.0</Module-Core>
-                        <Module-UpdateUrl>http://jtheque.baptiste-wicht.com/files/descriptors/jtheque-memory-module.xml
+                        <Module-UpdateUrl>http://jtheque.developpez.com/public/versions/MemoryModule.versions
                         </Module-UpdateUrl>
                     </instructions>
                 </configuration>
@@ -254,5 +254,4 @@
         <sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
         <sonar.cpd.minimumTokens>50</sonar.cpd.minimumTokens>
     </properties>
-
 </project>
