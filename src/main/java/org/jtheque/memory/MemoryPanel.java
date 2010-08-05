@@ -1,8 +1,8 @@
 package org.jtheque.memory;
 
 import org.jtheque.images.able.ImageService;
-import org.jtheque.ui.utils.components.Borders;
-import org.jtheque.views.able.components.IStateBarComponent;
+import org.jtheque.ui.able.components.Borders;
+import org.jtheque.views.able.components.StateBarComponent;
 
 import javax.swing.AbstractButton;
 import javax.swing.Box;
