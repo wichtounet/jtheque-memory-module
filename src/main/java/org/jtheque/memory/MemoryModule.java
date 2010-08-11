@@ -16,7 +16,7 @@ package org.jtheque.memory;
  * limitations under the License.
  */
 
-import org.jtheque.modules.utils.SwingModule;
+import org.jtheque.modules.able.SwingModule;
 import org.jtheque.utils.annotations.NotThreadSafe;
 import org.jtheque.utils.collections.CollectionUtils;
 
