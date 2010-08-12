@@ -1,6 +1,6 @@
 package org.jtheque.memory;
 
-import org.jtheque.images.able.ImageService;
+import org.jtheque.images.ImageService;
 import org.jtheque.ui.utils.actions.JThequeSimpleAction;
 
 import java.awt.event.ActionEvent;

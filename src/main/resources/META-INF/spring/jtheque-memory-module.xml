@@ -28,10 +28,10 @@
 
     <bean id="memoryPanel" class="org.jtheque.memory.MemoryPanel" lazy-init="true" >
         <constructor-arg>
-            <osgi:reference interface="org.jtheque.images.able.ImageService"/>
+            <osgi:reference interface="org.jtheque.images.ImageService"/>
         </constructor-arg>
         <constructor-arg ref="memoryModule"/>
     </bean>
 
-    <osgi:reference id="views" interface="org.jtheque.views.able.Views"/>
+    <osgi:reference id="views" interface="org.jtheque.views.Views"/>
 </beans>
